@@ -54,4 +54,30 @@ During development, we noted that most maritime operations require administrativ
 To maximize decentralization and flexibility, we made the **MinimalAccount (AA) the actual Owner of the Maritime Registry**. This allows for:
 * **Protocol Sovereignty**: The registry is controlled by code (the AA), not just a single private key, allowing for future upgrades like Multi-sig or Social Recovery.
 
+## BunkerChain Progress Summary
 
+* **Phase 1: Basic AA Integration**
+Integrated `MinimalAccount` for the Barge role to test fundamental AA compatibility and entry point interactions.
+* **Phase 2: Dual AA Roles**
+Scaled the architecture to support two distinct roles (Chief Engineer and Supplier) as Smart Contract Wallets, enabling secure signature verification against contract owners.
+* **Phase 3: Refined Access Control**
+Enhanced security by moving the `nominateBunker` function under `onlyOwner` oversight. This ensures that only the administrative authority can initiate official maritime records.
+* **Phase 4 (Final): AA-Owner Hierarchy**
+Established a programmable governance model where the **Maritime Registry is owned by a MinimalAccount**.
+
+---
+
+## Final Architecture Documentation
+
+### The Execution Flow
+
+The system operates through a hierarchical authorization chain:
+**Owner EOA (Signs)** ➔ **MinimalAccount AA (Executes)** ➔ **MaritimeRegistryAAOwner (Action)**
+
+### Key Advantages
+
+* **Gasless UX:** By utilizing the `EntryPoint`, the Barge or Chief Engineer can perform operations without holding native gas, as a Paymaster can be introduced to cover fees.
+* **Signature Verification:** Signatures are verified against the **Owner** of the AA contract, allowing for flexible security (e.g., changing the signer without changing the registered maritime address).
+* **Programmable Admin:** The Registry's administrative functions are now as flexible as the AA wallet itself, supporting logic like multi-sig approvals or time-locked actions.
+
+---
