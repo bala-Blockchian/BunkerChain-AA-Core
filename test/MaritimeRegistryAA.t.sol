@@ -38,6 +38,7 @@ contract MaritimeRegistryTest is Test {
         registry.registerSupplier(SUPPLIER_ID, address(minimalAccount));
     }
 
+    //done
     function testRegistrationDataIsCorrect() public view {
         address registeredChief = registry.shipToChiefEng(IMO_NUMBER);
         assertEq(registeredChief, chiefEngineer);
@@ -48,6 +49,7 @@ contract MaritimeRegistryTest is Test {
         console.log("Registry successfully linked to MinimalAccount at:", registeredBarge);
     }
 
+    //done
     function testOnlyBargeCanNominate() public {
         bytes32 deliveryId = keccak256("DELIVERY_001");
         uint256 expectedSulphur = 500;
@@ -60,6 +62,7 @@ contract MaritimeRegistryTest is Test {
         assertEq(note.imoNumber, IMO_NUMBER);
     }
 
+    //done
     //owner of minimal contract -> execute function(owner) -> nominateBunker(minimal contract)
     function testOwnerCanNominateViaExecute() public {
         bytes32 deliveryId = keccak256("DELIVERY_002");
@@ -81,6 +84,7 @@ contract MaritimeRegistryTest is Test {
         console.log("Nomination successful via MinimalAccount execution!");
     }
 
+    //done
     //check if the function revets when called by non owner
     function testOwnerCannotNominateViaExecute() public {
         bytes32 deliveryId = keccak256("DELIVERY_002");
@@ -95,6 +99,7 @@ contract MaritimeRegistryTest is Test {
         minimalAccount.execute(address(registry), 0, nominateData);
     }
 
+    //done
     //check if the script generated signature is valid
     function testRecoverSignedNominateOp() public {
         bytes32 deliveryId = keccak256("DELIVERY_AA_001");
@@ -119,6 +124,7 @@ contract MaritimeRegistryTest is Test {
         console.log("Signature Verified! UserOp for Maritime Registry signed by:", actualSigner);
     }
 
+    //done
     //genarete the userops with the sig -> prank the entry point -> validate function -> return the digest 0
     function testValidationOfNominateUserOp() public {
         bytes32 deliveryId = keccak256("DELIVERY_VAL_001");

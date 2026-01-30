@@ -43,14 +43,17 @@ contract MaritimeRegistryAAOwner is Ownable {
 
     constructor() Ownable(msg.sender) {}
 
+    //done
     function registerShip(string calldata _imo, address _chiefEng) external onlyOwner {
         shipToChiefEng[_imo] = _chiefEng;
     }
 
+    //done
     function registerSupplier(uint256 _supplierId, address _barge) external onlyOwner {
         supplierToBarge[_supplierId] = _barge;
     }
 
+    //done
     function nominateBunker(bytes32 _deliveryId, string calldata _imo, uint256 _supplierId, uint256 _expectedSulphur)
         external
         onlyOwner
@@ -65,6 +68,7 @@ contract MaritimeRegistryAAOwner is Ownable {
         emit BunkerNominated(_deliveryId, _imo, _supplierId);
     }
 
+    //done
     function finalizeBunker(
         bytes32 _deliveryId,
         uint256 _finalDensity,
@@ -108,11 +112,7 @@ contract MaritimeRegistryAAOwner is Ownable {
         emit BunkerFinalized(_deliveryId, note.imoNumber, _finalQty, _sigSupplier, _sigChiefEng);
     }
 
-    function anchorQuantumSeal(
-        bytes32 _deliveryId,
-        string calldata _pdfHash,
-        bytes calldata _quantumSig //update this as the bytes32 hash of the signature
-    )
+    function anchorQuantumSeal(bytes32 _deliveryId, string calldata _pdfHash, bytes calldata _quantumSig)
         external
         onlyOwner
     {
@@ -158,13 +158,4 @@ contract MaritimeRegistryAAOwner is Ownable {
 
         return ((supplierMatch && shipMatch), note.imoNumber, actualChief, actualBarge);
     }
-
-    //todo : Implement this functionality and test 
-    
-    //     function transferOwnershipFromEntryPoint(address newOwner) external {
-    //     if (msg.sender != address(i_entryPoint) && msg.sender != address(this)) {
-    //         revert MinimalAccount__NotFromEntryPointOrOwner();
-    //     }
-    //     _transferOwnership(newOwner);
-    // }
 }
